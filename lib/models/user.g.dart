@@ -13,10 +13,14 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
               ?.map((e) => QuizResult.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      fullName: json['fullName'] as String?,
+      email: json['email'] as String?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'username': instance.username,
       'password': instance.password,
       'quizHistory': instance.quizHistory.map((e) => e.toJson()).toList(),
+      'fullName': instance.fullName,
+      'email': instance.email,
     };

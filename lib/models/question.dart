@@ -8,11 +8,13 @@ class Question {
   final String question;
   final List<String> options;
   final String correctAnswer;
+  final String difficulty;
 
   Question({
     required this.question,
     required this.options,
     required this.correctAnswer,
+    required this.difficulty,
   });
 
   factory Question.fromJson(Map<String, dynamic> json) => _$QuestionFromJson(json);

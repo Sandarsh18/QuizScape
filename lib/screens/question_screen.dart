@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/models/question.dart';
 import 'package:quiz_app/screens/result_screen.dart';
 import 'package:quiz_app/services/quiz_service.dart';
+import 'package:quiz_app/utils/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:quiz_app/utils/theme_notifier.dart';
+import 'package:quiz_app/services/auth_service.dart';
 
 class QuestionScreen extends StatefulWidget {
   final String category;
-  const QuestionScreen({super.key, required this.category});
+  final String difficulty;
+  const QuestionScreen({super.key, required this.category, required this.difficulty});
 
   @override
   _QuestionScreenState createState() => _QuestionScreenState();
@@ -36,9 +41,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
   // Removed duplicate initState
 
   Future<void> _loadQuestions() async {
-    final allQuestions = await _quizService.getQuestionsForCategory(widget.category);
+    print('Loading questions for category: ${widget.category}, difficulty: ${widget.difficulty}');
+    final filteredQuestions = await _quizService.getQuestionsForCategory(widget.category, difficulty: widget.difficulty);
     setState(() {
-      _questions = _quizService.getRandomQuestions(allQuestions, 10);
+      _questions = _quizService.getRandomQuestions(filteredQuestions, 10);
       _startTimer();
     });
   }
@@ -65,14 +71,16 @@ class _QuestionScreenState extends State<QuestionScreen> {
     });
     _timerObj?.cancel();
     Future.delayed(const Duration(seconds: 1), () {
+      if (!mounted) return;
       _nextQuestion();
     });
   }
 
   void _nextQuestion() {
     if (_currentQuestionIndex < _questions.length - 1) {
-      _pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
-      Future.delayed(Duration(milliseconds: 500), () {
+      _pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+      Future.delayed(const Duration(milliseconds: 500), () {
+        if (!mounted) return;
         setState(() {
           _currentQuestionIndex++;
           _isAnswered = false;
@@ -81,14 +89,21 @@ class _QuestionScreenState extends State<QuestionScreen> {
         _startTimer();
       });
     } else {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => ResultScreen(
-            score: _score,
-            totalQuestions: _questions.length,
-            category: widget.category,
-          ),
-        ),
+      // Save quiz result to Hive
+      AuthService().saveQuizResult(
+        category: widget.category,
+        score: _score,
+        totalQuestions: _questions.length,
+        date: DateTime.now(),
+      );
+      Navigator.of(context).pushReplacementNamed(
+        '/result',
+        arguments: {
+          'score': _score,
+          'totalQuestions': _questions.length,
+          'category': widget.category,
+          'difficulty': widget.difficulty,
+        },
       );
     }
   }
@@ -103,17 +118,38 @@ class _QuestionScreenState extends State<QuestionScreen> {
     });
     _timerObj?.cancel();
     Future.delayed(const Duration(seconds: 1), () {
+      if (!mounted) return;
       _nextQuestion();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final categoryColor = AppColors.categoryColors[widget.category] ?? Theme.of(context).colorScheme.primary;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: categoryColor,
+        elevation: 0,
+        title: Text('${widget.category} - ${widget.difficulty[0].toUpperCase()}${widget.difficulty.substring(1)}'),
+        actions: [
+          Consumer<ThemeNotifier>(
+            builder: (context, themeNotifier, _) {
+              final isDark = themeNotifier.themeMode == ThemeMode.dark;
+              return IconButton(
+                icon: Icon(isDark ? Icons.wb_sunny : Icons.nightlight_round),
+                tooltip: isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+                onPressed: () => themeNotifier.toggleTheme(),
+              );
+            },
+          ),
+        ],
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF6A11CB), Color(0xFF2575FC)],
+            colors: Theme.of(context).brightness == Brightness.dark
+                ? [categoryColor.withOpacity(0.8), Colors.black87]
+                : [categoryColor.withOpacity(0.7), Colors.white],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -135,23 +171,23 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                 begin: 0,
                                 end: (_currentQuestionIndex + (_isAnswered ? 1 : 0)) / _questions.length,
                               ),
-                              duration: Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 500),
                               builder: (context, value, child) => LinearProgressIndicator(
                                 value: value,
                                 minHeight: 8,
-                                backgroundColor: Colors.white,
-                                color: Colors.purpleAccent,
+                                backgroundColor: Theme.of(context).colorScheme.surface,
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                             ),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(
                               'Progress: ${_currentQuestionIndex + (_isAnswered ? 1 : 0)}/${_questions.length}',
-                              style: TextStyle(fontSize: 14, color: Colors.white),
+                              style: TextStyle(fontSize: 14, color: Theme.of(context).textTheme.bodyLarge?.color),
                               textAlign: TextAlign.center,
                             ),
                           ],
                         ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       // Progress bar for time left
                       ValueListenableBuilder<int>(
                         valueListenable: _timerNotifier,
@@ -160,22 +196,22 @@ class _QuestionScreenState extends State<QuestionScreen> {
                             children: [
                               TweenAnimationBuilder<double>(
                                 tween: Tween<double>(begin: 0, end: value / 10),
-                                duration: Duration(milliseconds: 500),
+                                duration: const Duration(milliseconds: 500),
                                 builder: (context, val, child) => LinearProgressIndicator(
                                   value: val,
                                   minHeight: 8,
-                                  backgroundColor: Colors.white,
-                                  color: value <= 3 ? Colors.redAccent : Colors.greenAccent,
+                                  backgroundColor: Theme.of(context).colorScheme.surface,
+                                  color: value <= 3 ? Colors.redAccent : Theme.of(context).colorScheme.secondary,
                                 ),
                               ),
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
                               Text(
                                 'Time left: ${value}s',
                                 style: TextStyle(
-                                  color: value <= 3 ? Colors.redAccent : Colors.white,
+                                  color: value <= 3 ? Colors.redAccent : Theme.of(context).textTheme.bodyLarge?.color,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  shadows: [Shadow(blurRadius: 4, color: Colors.black26, offset: Offset(1,1))],
+                                  shadows: const [Shadow(blurRadius: 4, color: Colors.black26, offset: Offset(1,1))],
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -187,12 +223,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       Expanded(
                         child: PageView.builder(
                           controller: _pageController,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: _questions.length,
                           itemBuilder: (context, index) {
                             final question = _questions[index];
                             return AnimatedSwitcher(
-                              duration: Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 500),
                               transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
                               child: Column(
                                 key: ValueKey(index),
@@ -204,7 +240,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                       color: Colors.yellowAccent,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 22,
-                                      shadows: [Shadow(blurRadius: 4, color: Colors.black26, offset: Offset(1,1))],
+                                      shadows: [const Shadow(blurRadius: 4, color: Colors.black26, offset: Offset(1,1))],
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
@@ -212,31 +248,28 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                   Text(
                                     question.question,
                                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                      color: Colors.white,
+                                      color: Theme.of(context).textTheme.headlineSmall?.color,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 24,
-                                      shadows: [Shadow(blurRadius: 6, color: Colors.black38, offset: Offset(2,2))],
+                                      shadows: [const Shadow(blurRadius: 6, color: Colors.black38, offset: Offset(2,2))],
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
                                   const SizedBox(height: 40),
                                   ...question.options.map((option) {
-                                    final isSelected = _selectedAnswer == option && index == _currentQuestionIndex;
-                                    final isCorrect = option == question.correctAnswer && _isAnswered && index == _currentQuestionIndex;
-                                    final isWrong = isSelected && !isCorrect && _isAnswered && index == _currentQuestionIndex;
-                                    final isHovered = _hoveredOption == option && index == _currentQuestionIndex;
-                                    Color bgColor;
-                                    if (isCorrect) {
-                                      bgColor = Colors.greenAccent;
-                                    } else if (isWrong) {
-                                      bgColor = Colors.redAccent;
-                                    } else if (isSelected) {
-                                      bgColor = Colors.blueAccent;
-                                    } else if (isHovered) {
-                                      bgColor = Colors.orangeAccent;
-                                    } else {
-                                      bgColor = Colors.white;
-                                    }
+                                   final isSelected = _selectedAnswer == option && index == _currentQuestionIndex;
+                                   final isCorrect = option == question.correctAnswer && _isAnswered && index == _currentQuestionIndex;
+                                   final isWrong = isSelected && !isCorrect && _isAnswered && index == _currentQuestionIndex;
+                                   final isHovered = _hoveredOption == option && index == _currentQuestionIndex;
+                                   final bgColor = isCorrect
+                                       ? Colors.greenAccent
+                                       : isWrong
+                                           ? Colors.redAccent
+                                           : isSelected
+                                               ? Theme.of(context).colorScheme.secondary
+                                               : isHovered
+                                                   ? Colors.orangeAccent
+                                                   : categoryColor;
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: MouseRegion(
@@ -261,11 +294,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                             borderRadius: BorderRadius.circular(18),
                                             onTap: _isAnswered || index != _currentQuestionIndex ? null : () => _answerQuestion(option),
                                             child: AnimatedContainer(
-                                              duration: Duration(milliseconds: 300),
+                                              duration: const Duration(milliseconds: 300),
                                               curve: Curves.easeInOut,
                                               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
                                               child: AnimatedDefaultTextStyle(
-                                                duration: Duration(milliseconds: 300),
+                                                duration: const Duration(milliseconds: 300),
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: isSelected || isHovered ? FontWeight.bold : FontWeight.normal,
@@ -275,7 +308,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                                           ? Colors.white
                                                           : isSelected || isHovered
                                                               ? Colors.white
-                                                              : Colors.black,
+                                                              : Theme.of(context).textTheme.bodyLarge?.color,
                                                 ),
                                                 child: Center(child: Text(option)),
                                               ),
