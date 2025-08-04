@@ -42,7 +42,7 @@ QuizScape focuses on **accessibility, simplicity, and performance**, ensuring it
 
 | Splash Screen | Login Screen | Home Screen |
 |---------------|--------------|-------------|
-| ![Splash](assets/snapshots/login-light.png) | ![Login](assets/snapshots/login-dark.png) | ![Home](assets/snapshots/home-categories.png) |
+| ![Splash](assets/snapshots/login-light.png) | ![Login](assets/snapshots/login-dark..png) | ![Home](assets/snapshots/home-categories.png) |
 
 | Quiz Screen | Result Screen | Profile Screen |
 |-------------|---------------|----------------|
