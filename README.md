@@ -1,134 +1,205 @@
-<<<<<<< HEAD
-# 🧠 QuizScape 🎯  
-> A dynamic, beautiful quiz app built with Flutter — where learning meets fun!
+# 📚 QuizScape  
+*An Offline-First Interactive Quiz Application built with Flutter & Dart*  
 
-![Flutter](https://img.shields.io/badge/Made%20with-Flutter-blue.svg)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
-
----
-
-## 🌟 Features
-
-✨ **QuizScape** turns your mobile device into a learning playground with:
-
-- 🔐 **User Authentication** — Login & Register with smooth navigation.
-- 📚 **Quiz Categories** — Choose topics and explore interactive MCQs.
-- 💡 **Beautiful UI** — Clean design with responsive and animated widgets.
-- 📊 **Score Tracking** — See how well you did after each quiz.
-- 🧱 **Modular Architecture** — Clean folder structure & service-based logic.
-- 🔁 **Reusable Widgets** — Buttons, cards, and layouts used across the app.
+![Flutter](https://img.shields.io/badge/Flutter-v3.22-blue?logo=flutter)
+![Dart](https://img.shields.io/badge/Dart-3.4-blue?logo=dart)
+![Platform](https://img.shields.io/badge/Platform-Android-lightgrey)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Status](https://img.shields.io/badge/Status-Active-success)
 
 ---
 
-## 📱 Screenshots
+## 📖 Introduction  
 
-> _Here you can include screenshots of your UI if available._  
-_(Example placeholders below)_
+**QuizScape** is a lightweight and user-friendly quiz application developed using **Flutter** and **Dart**, designed to provide a seamless and interactive learning experience.  
+Unlike many quiz apps that depend heavily on internet access, QuizScape is built with an **offline-first architecture** using **SharedPreferences** for data storage.  
 
-| Home Screen | Quiz Screen | Result Screen |
-|-------------|-------------|----------------|
-| ![home](assets/screenshots/home.png) | ![quiz](assets/screenshots/quiz.png) | ![result](assets/screenshots/result.png) |
+The app allows users to:
+- Sign up and log in securely  
+- Attempt quizzes across multiple categories and difficulty levels  
+- Track progress and scores in real time  
+- Customize appearance with Dark/Light mode 🌙☀️  
 
----
-
-## 🛠️ Tech Stack
-
-| Tool | Purpose |
-|------|---------|
-| 🐦 Flutter | Cross-platform UI |
-| 🎯 Dart | Core programming language |
-| 🔄 Provider (or custom state logic) | State management |
-| 💾 SharedPreferences (suggested) | Store login/token locally |
-| 🔣 JSON Serializable | Model encoding/decoding |
-| 📦 GitHub | Source control & collaboration |
+QuizScape focuses on **accessibility, simplicity, and performance**, ensuring it works smoothly on budget Android devices as well.  
 
 ---
 
-## 🔄 Folder Structure
+## 🚀 Key Features  
 
-QuizScape/
-├── lib/
-│   ├── models/            # Data models (User, Question, Result)
-│   ├── screens/           # UI Screens
-│   ├── services/          # Auth, Quiz, Storage logic
-│   ├── widgets/           # Custom reusable widgets
-│   └── utils/             # Theme & constants
-├── assets/                # Images, fonts, etc.
-├── pubspec.yaml           # Dependencies & assets
-└── README.md              # This file 😄
+- 🔑 **User Authentication**: Secure login and signup with persistent sessions  
+- 📂 **Quiz Categories**: Science, GK, Technology, and more  
+- 📊 **Difficulty Levels**: Easy, Medium, Hard  
+- ⏱️ **Quiz Timer**: Countdown for each quiz attempt  
+- 📱 **Offline Functionality**: Works without internet  
+- 🌓 **Dark & Light Mode**: User preference saved locally  
+- 🏅 **Result & Analytics**: Score summary with feedback  
+- 👤 **Profile Dashboard**: Displays user info and progress history  
+- 🔒 **Secure Storage**: User data saved with SharedPreferences  
 
-🚀 Getting Started
-✅ Prerequisites
-Flutter SDK installed 🔗
+---
 
-Git
+## 🖼️ Screenshots  
 
-A code editor like VS Code or Android Studio
+| Splash Screen | Login Screen | Home Screen |
+|---------------|--------------|-------------|
+| ![Splash](docs/images/splash.png) | ![Login](docs/images/login.png) | ![Home](docs/images/home.png) |
 
-📦 Installation
+| Quiz Screen | Result Screen | Profile Screen |
+|-------------|---------------|----------------|
+| ![Quiz](docs/images/quiz.png) | ![Result](docs/images/result.png) | ![Profile](docs/images/profile.png) |
 
-# Clone the repo
-git clone https://github.com/Sandarsh18/QuizScape.git
-cd QuizScape
+> 📸 *Replace the placeholders inside `docs/images/` with actual screenshots of your app.*  
 
-# Get dependencies
-flutter pub get
+---
 
-# Run the app
-flutter run
-🧪 Upcoming Features
-☁️ Firebase Authentication & Firestore integration
+## 🗺️ Navigation Flow  
 
-🌍 Multi-language support
+```mermaid
+flowchart TD
+    A[Splash Screen] --> B{Already Logged In?}
+    B -- Yes --> C[Home Screen]
+    B -- No --> D[Login/Signup Screen]
+    D --> C
+    C --> E[Category & Difficulty Selection]
+    E --> F[Quiz Screen]
+    F --> G[Result Screen]
+    C --> H[Profile Screen]
+    C --> I[Settings Screen]
 
-🧑‍🤝‍🧑 Leaderboard & Social Sharing
+🏛️ Architecture
+    graph TD
+    User --> UI
+    UI --> QuizEngine
+    QuizEngine --> SharedPreferences
+    SharedPreferences --> DataPersistence
+    UI --> ProfileModule
+    UI --> SettingsModule
 
-📈 Analytics for quiz performance
+    UI Layer: Screens for login, quiz, results, profile, and settings
 
-💬 Contributing
-We ❤️ contributions!
+    Quiz Engine: Handles quiz logic, timer, and scoring
 
-# Fork this repo
-# Create your feature branch: git checkout -b feature/awesome-feature
-# Commit your changes: git commit -m "Added new feature"
-# Push to the branch: git push origin feature/awesome-feature
-# Open a Pull Request
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+    SharedPreferences: Stores user details, scores, and preferences
 
-🙌 Acknowledgements
-Thanks to:
+    Profile & Settings Modules: Personalize user experience
 
-Flutter & Dart Devs
+🧩 Entity–Relationship (ER) Diagram
+    erDiagram
+    USER ||--o{ RESULT : has
+    QUIZ ||--o{ QUESTION : contains
+    USER ||--|| PREFERENCES : owns
 
-The Open Source Community 🌍
+    USER {
+        string User_ID
+        string Name
+        string Email
+        string Password
+    }
+    QUIZ {
+        string Quiz_ID
+        string Category
+        string Difficulty_Level
+    }
+    QUESTION {
+        string Question_ID
+        string Quiz_ID
+        string Question_Text
+        string Options
+        string Correct_Answer
+    }
+    RESULT {
+        string Result_ID
+        string User_ID
+        string Quiz_ID
+        int Score
+        int Correct_Count
+        int Incorrect_Count
+        string Time_Taken
+    }
+    PREFERENCES {
+        string User_ID
+        string Theme_Mode
+        string Language
+        string Last_Quiz_Attempted
+    }
 
-Quiz makers around the world 💡
+📦 Technology Stack
+    | Layer          | Technology Used         |
+    | -------------- | ----------------------- |
+    | **Frontend**   | Flutter (Dart)          |
+    | **Storage**    | SharedPreferences       |
+    | **State Mgmt** | Provider                |
+    | **Styling**    | Google Fonts, Custom UI |
+    | **Testing**    | flutter\_test           |
+    | **Linting**    | flutter\_lints          |
 
-🔗 Connect With Me
-Feel free to connect or give feedback:
+⚙️ Requirements & Specifications
 
-👨‍💻 GitHub: Sandarsh18
+    Hardware Requirements
 
-📧 Email: your_email@example.com (optional)
+        📱 Android Smartphone with min. 2 GB RAM
 
-Keep Learning. Keep Building. 🚀
-=======
-# quiz_app
+        💾 50 MB storage space
 
-A new Flutter project.
+        ⚡ Quad-core 1.5 GHz processor
 
-## Getting Started
+        📺 Display resolution: 720p or higher
 
-This project is a starting point for a Flutter application.
+    Software Requirements
 
-A few resources to get you started if this is your first Flutter project:
+        🖥️ Android 7.0 (Nougat) or higher
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+        🔧 Flutter SDK
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
->>>>>>> master
+        💻 Visual Studio Code IDE
+
+        🐦 Dart Programming Language
+
+        📚 Dependencies:
+
+            shared_preferences → Local storage
+
+            provider → State management
+
+            intl → Date/time formatting
+
+            google_fonts → Custom fonts
+
+
+🧪 Quality Assurance
+
+        📝 flutter_lints → Enforces clean, consistent Dart coding practices
+
+        🧪 flutter_test → Unit, widget, and integration testing for stability
+
+        ⚡ Code Generation Pipeline → Automates boilerplate code generation
+
+        📊 Performance Profiling → Tracks CPU, memory, and battery usage with Flutter DevTools
+
+🎥 Demonstration
+        Video Link: ▶️ Watch Project Demo
+
+        Or scan the QR code below:
+
+🏁 Conclusion
+
+        QuizScape successfully combines interactive quizzes, offline-first functionality, and user personalization into a lightweight mobile app.
+        It showcases strong skills in Flutter development, state management, UI/UX design, and local storage handling.
+        The app’s modular design ensures easy scalability, making it future-ready 🌱.
+
+🔮 Future Scope
+
+    🌍 Add multilingual support
+
+    ☁️ Firebase integration for leaderboards and cloud sync
+
+    🤖 AI-driven personalized quiz recommendations
+
+    🏆 Gamification elements (badges, streaks, achievements)
+
+📜 License
+
+    This project is licensed under the MIT License.
+    See the LICENSE file for details.
+
+
