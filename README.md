@@ -85,8 +85,9 @@ flowchart TD
     SharedPreferences: Stores user details, scores, and preferences
 
     Profile & Settings Modules: Personalize user experience
+---
 
-🧩 Entity–Relationship (ER) Diagram
+### 🧩 Entity–Relationship (ER) Diagram
     erDiagram
     USER ||--o{ RESULT : has
     QUIZ ||--o{ QUESTION : contains
@@ -182,7 +183,7 @@ flowchart TD
 ## 🎥 Demonstration  
 
         ▶️ **[Watch Project Demo](https://drive.google.com/drive/folders/1Yzxn-CuKI7NZ6O451vO_tT8ok0fpccWo?usp=drive_link)**  
-
+        - **Kishan’s Video:** [Google Drive Link](https://drive.google.com/drive/folders/1fd0nXD2AImU4n6BQqnHcBUAc7Z7x1sPt?usp=drive_link)  
         📱 Or scan the QR code below:  
 
         ![QR Code](assets/qr-code/frame.png)
