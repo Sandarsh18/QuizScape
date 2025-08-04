@@ -179,11 +179,14 @@ flowchart TD
 
         📊 Performance Profiling → Tracks CPU, memory, and battery usage with Flutter DevTools
 
-🎥 Demonstration
-        Video Link: ▶️ Watch Project Demo(https://drive.google.com/drive/folders/1Yzxn-CuKI7NZ6O451vO_tT8ok0fpccWo?usp=drive_link)
+## 🎥 Demonstration  
 
-        Or scan the QR code below:
-        ![QR Code](assets/snapshots/qr-code.png)]
+        ▶️ **[Watch Project Demo](https://drive.google.com/drive/folders/1Yzxn-CuKI7NZ6O451vO_tT8ok0fpccWo?usp=drive_link)**  
+
+        📱 Or scan the QR code below:  
+
+        ![QR Code](assets/qr-code/frame.png)
+
 
 🏁 Conclusion
 
