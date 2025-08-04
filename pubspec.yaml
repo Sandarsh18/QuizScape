@@ -15,7 +15,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.2.2
   json_annotation: ^4.8.1
+<<<<<<< HEAD
   intl: ^0.18.1  # <-- ADD THIS LINE
+=======
+  intl: ^0.18.1
+  provider: ^6.1.2
+>>>>>>> master
 
 dev_dependencies:
   flutter_test:

@@ -9,11 +9,21 @@ class User {
   String username;
   String password; // Note: In a real app, never store passwords in plain text.
   List<QuizResult> quizHistory;
+<<<<<<< HEAD
+=======
+  String? fullName;
+  String? email;
+>>>>>>> master
 
   User({
     required this.username,
     required this.password,
     this.quizHistory = const [],
+<<<<<<< HEAD
+=======
+    this.fullName,
+    this.email,
+>>>>>>> master
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

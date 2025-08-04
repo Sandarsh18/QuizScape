@@ -4,6 +4,12 @@ import 'package:quiz_app/screens/profile_screen.dart';
 import 'package:quiz_app/screens/question_screen.dart';
 import 'package:quiz_app/services/quiz_service.dart';
 import 'package:quiz_app/widgets/gradient_background.dart';
+<<<<<<< HEAD
+=======
+import 'package:quiz_app/utils/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:quiz_app/utils/theme_notifier.dart';
+>>>>>>> master
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -36,6 +42,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
               MaterialPageRoute(builder: (context) => const ProfileScreen()),
             ),
           ),
+<<<<<<< HEAD
+=======
+          Consumer<ThemeNotifier>(
+            builder: (context, themeNotifier, _) {
+              final isDark = themeNotifier.themeMode == ThemeMode.dark;
+              return IconButton(
+                icon: Icon(isDark ? Icons.wb_sunny : Icons.nightlight_round),
+                tooltip: isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+                onPressed: () => themeNotifier.toggleTheme(),
+              );
+            },
+          ),
+>>>>>>> master
         ],
       ),
       extendBodyBehindAppBar: true,
@@ -63,6 +82,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   elevation: 8,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+<<<<<<< HEAD
                   color: Colors.primaries[index % Colors.primaries.length].shade200,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(18),
@@ -70,17 +90,55 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => QuestionScreen(category: category),
                       ));
+=======
+                  color: AppColors.categoryColors[category] ?? Theme.of(context).cardColor,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(18),
+                    onTap: () async {
+                      final difficulty = await showDialog<String>(
+                        context: context,
+                        builder: (context) {
+                          return SimpleDialog(
+                            title: const Text('Select Difficulty'),
+                            children: QuizService().getDifficulties().map((level) =>
+                              SimpleDialogOption(
+                                onPressed: () => Navigator.pop(context, level),
+                                child: Text(level[0].toUpperCase() + level.substring(1)),
+                              )
+                            ).toList(),
+                          );
+                        },
+                      );
+                      if (difficulty != null) {
+                        print('Navigating to QuestionScreen with category: $category, difficulty: $difficulty');
+                        Navigator.of(context).pushNamed(
+                          '/question',
+                          arguments: {
+                            'category': category,
+                            'difficulty': difficulty,
+                          },
+                        );
+                      }
+>>>>>>> master
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
                       child: Center(
                         child: Text(
                           category,
+<<<<<<< HEAD
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                             color: Colors.white,
                             shadows: [Shadow(blurRadius: 4, color: Colors.black26, offset: Offset(1,1))],
+=======
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Theme.of(context).textTheme.bodyLarge?.color,
+                            shadows: [const Shadow(blurRadius: 4, color: Colors.black26, offset: Offset(1,1))],
+>>>>>>> master
                           ),
                         ),
                       ),
