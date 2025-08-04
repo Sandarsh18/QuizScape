@@ -1,4 +1,4 @@
-# 📚 QuizScape  
+# 📚 QuizScape - A Smart Quiz App  
 *An Offline-First Interactive Quiz Application built with Flutter & Dart*  
 
 ![Flutter](https://img.shields.io/badge/Flutter-v3.22-blue?logo=flutter)
@@ -42,13 +42,16 @@ QuizScape focuses on **accessibility, simplicity, and performance**, ensuring it
 
 | Splash Screen | Login Screen | Home Screen |
 |---------------|--------------|-------------|
-| ![Splash](docs/images/splash.png) | ![Login](docs/images/login.png) | ![Home](docs/images/home.png) |
+| ![Splash](assets/snapshots/login-light.png) | ![Login](assets/snapshots/login-dark.png) | ![Home](assets/snapshots/home-categories.png) |
 
 | Quiz Screen | Result Screen | Profile Screen |
 |-------------|---------------|----------------|
-| ![Quiz](docs/images/quiz.png) | ![Result](docs/images/result.png) | ![Profile](docs/images/profile.png) |
+| ![Quiz](assets/snapshots/questions-dark.png) | ![Result](assets/snapshots/result-dark.png) | ![Profile](assets/snapshots/profile-dark.png) |
 
-> 📸 *Replace the placeholders inside `docs/images/` with actual screenshots of your app.*  
+| Settings Screen |
+|-----------------|
+| ![Settings](assets/snapshots/profile-edit-light.png) |
+
 
 ---
 
@@ -177,9 +180,10 @@ flowchart TD
         📊 Performance Profiling → Tracks CPU, memory, and battery usage with Flutter DevTools
 
 🎥 Demonstration
-        Video Link: ▶️ Watch Project Demo
+        Video Link: ▶️ Watch Project Demo(https://drive.google.com/drive/folders/1Yzxn-CuKI7NZ6O451vO_tT8ok0fpccWo?usp=drive_link)
 
         Or scan the QR code below:
+        ![QR Code](assets/snapshots/qr-code.png)]
 
 🏁 Conclusion
 
