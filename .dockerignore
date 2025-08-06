@@ -1,0 +1,25 @@
+# Flutter build directories
+build/
+android/
+ios/
+linux/
+macos/
+windows/
+
+# Dart/Flutter cache
+.pub/
+.pub-cache/
+.packages
+pubspec.lock
+
+# VSCode/IDE files
+*.iml
+*.idea/
+.vscode/
+
+# Docker images
+*.tar
+*.tar.gz
+
+# Other
+*.log
