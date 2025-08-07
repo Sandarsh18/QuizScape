@@ -167,6 +167,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       onPressed: _saveProfile,
                                       child: const Text('Save'),
                                     ),
+<<<<<<< HEAD
+=======
+                                    const SizedBox(height: 12),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text('Confirm Account Deletion'),
+                                              content: const Text('Are you sure you want to delete your account? This action cannot be undone.'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text('Cancel'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                                TextButton(
+                                                  child: const Text('Delete'),
+                                                  onPressed: () async {
+                                                    await _authService.deleteAccount();
+                                                    Navigator.of(context).pushAndRemoveUntil(
+                                                      MaterialPageRoute(builder: (context) => const LoginScreen()),
+                                                      (route) => false,
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.red,
+                                      ),
+                                      child: const Text('Delete Account'),
+                                    ),
+>>>>>>> 2c2cba5 (added delete button)
                                   ],
                                 )
                               : Column(

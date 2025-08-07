@@ -117,5 +117,23 @@ class AuthService {
       .toList();
   }
 
+<<<<<<< HEAD
+=======
+  Future<void> deleteAccount() async {
+    final prefs = await SharedPreferences.getInstance();
+    final usersJson = prefs.getString(_usersKey);
+    if (usersJson == null) return;
+
+    final Map<String, dynamic> users = jsonDecode(usersJson);
+    final username = await _getCurrentUsername();
+    if (username != null && users.containsKey(username)) {
+      users.remove(username);
+      await _saveAllUsers(users);
+      await _clearCurrentUsername();
+      await prefs.remove(_quizResultsKey); // Optionally clear quiz results
+    }
+  }
+
+>>>>>>> 2c2cba5 (added delete button)
   // You can keep using Hive for quiz_results if you want, or migrate to shared_preferences as well.
 }
