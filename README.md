@@ -144,6 +144,13 @@ erDiagram
 | **Testing**    | flutter_test            |
 | **Linting**    | flutter_lints           |
 
+
+## ♿ Content & Accessibility
+
+- 🌍 **Multilingual Support:** Language selection and full localization for all content.
+- 🗣️ **Text-to-Speech & Accessibility:** Improved support for visually impaired users, including TTS for questions and answers.
+- 🖼️ **Rich Media Questions:** Support for images, audio, and video in questions and answers for a more engaging experience.
+
 ⚙️ **Requirements & Specifications**
 
     Hardware Requirements
