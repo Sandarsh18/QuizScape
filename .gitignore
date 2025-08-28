@@ -49,3 +49,4 @@ app.*.map.json
 assets/.env
 # Do not ignore the example file
 !assets/.env.example
+.env
