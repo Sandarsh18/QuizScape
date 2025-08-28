@@ -4,6 +4,9 @@ import 'package:flutter/services.dart' show rootBundle;
 import '../models/question.dart';
 
 class QuizService {
+  Future<List<Question>> fetchQuestions({required String category, required String difficulty}) async {
+    return getQuestionsForCategory(category, difficulty: difficulty);
+  }
   Future<List<Question>> getQuestionsForCategory(String categoryName, {String? difficulty}) async {
     final String response = await rootBundle.loadString('assets/data/quiz_questions.json');
     final data = await json.decode(response);

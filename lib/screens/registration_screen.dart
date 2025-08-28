@@ -1,6 +1,6 @@
 // lib/screens/registration_screen.dart
 import 'package:flutter/material.dart';
-import 'package:quiz_app/services/auth_service.dart';
+import 'package:quiz_app/services/supabase_service.dart';
 import 'package:provider/provider.dart';
 import 'package:quiz_app/utils/theme_notifier.dart';
 
@@ -12,12 +12,12 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  final _usernameController = TextEditingController();
   final _fullNameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  final AuthService _authService = AuthService();
+  final SupabaseService _supabaseService = SupabaseService();
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   String? _errorMessage;
@@ -41,19 +41,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       setState(() => _errorMessage = 'Passwords do not match.');
       return;
     }
-    final success = await _authService.register(
-      username,
-      password,
-      fullName: fullName,
-      email: email,
-    );
-    if (success && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Registration successful! Please login.')),
-      );
-      Navigator.of(context).pop();
-    } else {
-      setState(() => _errorMessage = 'Username already exists.');
+    try {
+      final res = await _supabaseService.signUp(email, password);
+      final user = res.user;
+      if (user != null) {
+        // Upsert user profile in users table
+        await _supabaseService.createUser(
+          id: user.id,
+          username: username,
+          email: email,
+        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Registration successful! Please login.')),
+          );
+          Navigator.of(context).pop();
+        }
+      } else {
+        setState(() => _errorMessage = 'Registration failed.');
+      }
+    } catch (e) {
+      setState(() => _errorMessage = 'Registration failed: ${e.toString()}');
     }
   }
 

@@ -17,8 +17,7 @@ class AuthService {
   }
 
   Future<void> _saveAllUsers(Map<String, dynamic> users) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_usersKey, jsonEncode(users));
+// This file is deprecated. All authentication and user management is now handled by SupabaseService.
   }
 
   Future<String?> _getCurrentUsername() async {
@@ -117,8 +116,6 @@ class AuthService {
       .toList();
   }
 
-<<<<<<< HEAD
-=======
   Future<void> deleteAccount() async {
     final prefs = await SharedPreferences.getInstance();
     final usersJson = prefs.getString(_usersKey);
@@ -130,10 +127,8 @@ class AuthService {
       users.remove(username);
       await _saveAllUsers(users);
       await _clearCurrentUsername();
-      await prefs.remove(_quizResultsKey); // Optionally clear quiz results
+      await prefs.remove(_quizResultsKey); 
     }
   }
 
->>>>>>> 2c2cba5 (added delete button)
-  // You can keep using Hive for quiz_results if you want, or migrate to shared_preferences as well.
 }

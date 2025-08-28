@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/screens/category_screen.dart';
 import 'package:quiz_app/screens/registration_screen.dart';
-import 'package:quiz_app/services/auth_service.dart';
+import 'package:quiz_app/services/supabase_service.dart';
 import 'package:provider/provider.dart';
 import 'package:quiz_app/utils/theme_notifier.dart';
 
@@ -14,27 +14,31 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _usernameOrEmailController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final AuthService _authService = AuthService();
+  final SupabaseService _supabaseService = SupabaseService();
   bool _obscurePassword = true;
   String? _errorMessage;
 
   void _login() async {
     setState(() => _errorMessage = null);
-    final userOrEmail = _usernameOrEmailController.text.trim();
+    final email = _emailController.text.trim();
     final password = _passwordController.text;
-    if (userOrEmail.isEmpty || password.isEmpty) {
+    if (email.isEmpty || password.isEmpty) {
       setState(() => _errorMessage = 'All fields are required.');
       return;
     }
-    final success = await _authService.login(userOrEmail, password);
-    if (success && mounted) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const CategoryScreen()),
-      );
-    } else {
-      setState(() => _errorMessage = 'Invalid username/email or password');
+    try {
+      final res = await _supabaseService.signIn(email, password);
+      if (res.user != null && mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const CategoryScreen()),
+        );
+      } else {
+        setState(() => _errorMessage = 'Invalid email or password');
+      }
+    } catch (e) {
+      setState(() => _errorMessage = 'Login failed: ${e.toString()}');
     }
   }
 
@@ -77,10 +81,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(_errorMessage!, style: const TextStyle(color: Colors.red)),
                     ),
                   TextField(
-                    controller: _usernameOrEmailController,
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
-                      labelText: 'Username or Email',
-                      prefixIcon: Icon(Icons.account_circle_outlined),
+                      labelText: 'Email',
+                      prefixIcon: Icon(Icons.email_outlined),
                     ),
                   ),
                   const SizedBox(height: 16),

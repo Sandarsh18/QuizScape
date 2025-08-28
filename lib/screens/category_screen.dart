@@ -1,7 +1,6 @@
 // lib/screens/category_screen.dart
 import 'package:flutter/material.dart';
 import 'package:quiz_app/screens/profile_screen.dart';
-import 'package:quiz_app/screens/question_screen.dart';
 import 'package:quiz_app/services/quiz_service.dart';
 import 'package:quiz_app/widgets/gradient_background.dart';
 import 'package:quiz_app/utils/constants.dart';
