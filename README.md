@@ -45,21 +45,14 @@ QuizScape focuses on **accessibility, simplicity, and performance**, ensuring it
 
 ## 🖼️ Screenshots  
 
-| Splash Screen | Login Screen | Home Screen |
-|---------------|--------------|-------------|
-| ![Splash](assets/snapshots/splash.png) | ![Login](assets/snapshots/login.png) | ![Home](assets/snapshots/home-categories.png) |
 
-| Quiz Screen | Result Screen | Profile Screen |
-|-------------|---------------|----------------|
-| ![Quiz](assets/snapshots/questions-dark.png) | ![Result](assets/snapshots/result-dark.png) | ![Profile](assets/snapshots/profile.png) |
+<div align="center">
 
-| Register Screen | Profile Edit | Home (Categories & Difficulties) |
-|-----------------|-------------|-------------------------------|
-| ![Register](assets/snapshots/register.png) | ![Profile Edit](assets/snapshots/profile-edit.png) | ![Categories & Difficulties](assets/snapshots/home-categories-difficulties.png) |
+| Splash | Login | Register | Quiz | Result | Profile | Home (Categories & Difficulties) | Settings (Dark) |
+|--------|-------|----------|------|--------|---------|-------------------------------|-----------------|
+| <img src="assets/snapshots/splash.png" width="120" /> | <img src="assets/snapshots/login.png" width="120" /> | <img src="assets/snapshots/register.png" width="120" /> | <img src="assets/snapshots/questions-dark.png" width="120" /> | <img src="assets/snapshots/result-dark.png" width="120" /> | <img src="assets/snapshots/profile.png" width="120" /> | <img src="assets/snapshots/home-categories-difficulties.png" width="120" /> | <img src="assets/snapshots/settings-dark.png" width="120" /> |
 
-| Settings Screen (Light) | Settings Screen (Dark) | Profile Edit (Light) |
-|------------------------|-----------------------|---------------------|
-| ![Settings Light](assets/snapshots/settings-light.png) | ![Settings Dark](assets/snapshots/settings-dark.png) | ![Profile Edit Light](assets/snapshots/profile-edit-light.png) |
+</div>
 
 ---
 
