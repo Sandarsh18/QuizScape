@@ -46,11 +46,16 @@ QuizScape focuses on **accessibility, simplicity, and performance**, ensuring it
 ## 🖼️ Screenshots  
 
 
+
 <div align="center">
 
-| Splash | Login | Register | Quiz | Result | Profile | Home (Categories & Difficulties) | Settings (Dark) |
-|--------|-------|----------|------|--------|---------|-------------------------------|-----------------|
-| <img src="assets/snapshots/splash.png" width="120" /> | <img src="assets/snapshots/login.png" width="120" /> | <img src="assets/snapshots/register.png" width="120" /> | <img src="assets/snapshots/questions-dark.png" width="120" /> | <img src="assets/snapshots/result-dark.png" width="120" /> | <img src="assets/snapshots/profile.png" width="120" /> | <img src="assets/snapshots/home-categories-difficulties.png" width="120" /> | <img src="assets/snapshots/settings-dark.png" width="120" /> |
+| Splash | Login | Register | Quiz |
+|--------|-------|----------|------|
+| <img src="assets/snapshots/splash.png" width="120" /> | <img src="assets/snapshots/login.png" width="120" /> | <img src="assets/snapshots/register.png" width="120" /> | <img src="assets/snapshots/questions-dark.png" width="120" /> |
+
+| Result | Profile | Home (Categories & Difficulties) | Settings (Dark) |
+|--------|---------|-------------------------------|-----------------|
+| <img src="assets/snapshots/result-dark.png" width="120" /> | <img src="assets/snapshots/profile.png" width="120" /> | <img src="assets/snapshots/home-categories-difficulties.png" width="120" /> | <img src="assets/snapshots/settings-dark.png" width="120" /> |
 
 </div>
 
