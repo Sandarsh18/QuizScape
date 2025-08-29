@@ -47,15 +47,19 @@ QuizScape focuses on **accessibility, simplicity, and performance**, ensuring it
 
 | Splash Screen | Login Screen | Home Screen |
 |---------------|--------------|-------------|
-| ![Splash](assets/snapshots/splash-light.png) | ![Login](assets/snapshots/login-dark.png) | ![Home](assets/snapshots/home-categories.png) |
+| ![Splash](assets/snapshots/splash.png) | ![Login](assets/snapshots/login.png) | ![Home](assets/snapshots/home-categories.png) |
 
 | Quiz Screen | Result Screen | Profile Screen |
 |-------------|---------------|----------------|
-| ![Quiz](assets/snapshots/questions-dark.png) | ![Result](assets/snapshots/result-dark.png) | ![Profile](assets/snapshots/profile-dark.png) |
+| ![Quiz](assets/snapshots/questions-dark.png) | ![Result](assets/snapshots/result-dark.png) | ![Profile](assets/snapshots/profile.png) |
 
-| Settings Screen |
-|-----------------|
-| ![Settings](assets/snapshots/settings-light.png) |
+| Register Screen | Profile Edit | Home (Categories & Difficulties) |
+|-----------------|-------------|-------------------------------|
+| ![Register](assets/snapshots/register.png) | ![Profile Edit](assets/snapshots/profile-edit.png) | ![Categories & Difficulties](assets/snapshots/home-categories-difficulties.png) |
+
+| Settings Screen (Light) | Settings Screen (Dark) | Profile Edit (Light) |
+|------------------------|-----------------------|---------------------|
+| ![Settings Light](assets/snapshots/settings-light.png) | ![Settings Dark](assets/snapshots/settings-dark.png) | ![Profile Edit Light](assets/snapshots/profile-edit-light.png) |
 
 ---
 

@@ -5,6 +5,7 @@ import 'package:quiz_app/screens/login_screen.dart';
 import 'package:quiz_app/screens/profile_screen.dart';
 import 'package:quiz_app/screens/question_screen.dart';
 import 'package:quiz_app/screens/quiz_result_screen.dart';
+import 'package:quiz_app/screens/splash_screen.dart';
 import 'package:quiz_app/services/supabase_service.dart';
 import 'package:quiz_app/utils/theme.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: themeNotifier.themeMode,
       debugShowCheckedModeBanner: false,
-      home: _getInitialScreen(),
+      home: SplashScreenWrapper(),
       routes: {
         '/profile': (context) => const ProfileScreen(),
         '/question': (context) {
@@ -81,13 +82,34 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  // Returns the initial screen based on authentication state
-  Widget _getInitialScreen() {
-    final user = _supabaseService.currentUser;
-    if (user != null) {
-      return const CategoryScreen();
-    } else {
-      return const LoginScreen();
-    }
+}
+
+// SplashScreenWrapper shows splash, then navigates to login or category
+class SplashScreenWrapper extends StatefulWidget {
+  const SplashScreenWrapper({super.key});
+
+  @override
+  State<SplashScreenWrapper> createState() => _SplashScreenWrapperState();
+}
+
+class _SplashScreenWrapperState extends State<SplashScreenWrapper> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2), () {
+      final user = MyApp._supabaseService.currentUser;
+      if (mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => user != null ? const CategoryScreen() : const LoginScreen(),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const SplashScreen();
   }
 }
