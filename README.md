@@ -199,7 +199,7 @@ erDiagram
 
 📱 Or scan the QR code below:
 
-![QR Code](assets/qr-code/frame.png)
+<img src="assets/qr-code/frame.png" alt="QR Code" width="90" height="90" />
 
 
 🏁 **Conclusion**
