@@ -47,7 +47,7 @@ QuizScape focuses on **accessibility, simplicity, and performance**, ensuring it
 
 | Splash Screen | Login Screen | Home Screen |
 |---------------|--------------|-------------|
-| ![Splash](assets/snapshots/login-light.png) | ![Login](assets/snapshots/login-dark..png) | ![Home](assets/snapshots/home-categories.png) |
+| ![Splash](assets/snapshots/splash-light.png) | ![Login](assets/snapshots/login-dark.png) | ![Home](assets/snapshots/home-categories.png) |
 
 | Quiz Screen | Result Screen | Profile Screen |
 |-------------|---------------|----------------|
@@ -55,7 +55,7 @@ QuizScape focuses on **accessibility, simplicity, and performance**, ensuring it
 
 | Settings Screen |
 |-----------------|
-| ![Settings](assets/snapshots/profile-edit-light.png) |
+| ![Settings](assets/snapshots/settings-light.png) |
 
 ---
 
@@ -70,8 +70,9 @@ flowchart TD
     C --> E[Category & Difficulty Selection]
     E --> F[Quiz Screen]
     F --> G[Result Screen]
+    G --> H[Profile Screen]
     C --> H[Profile Screen]
-    C --> I[Settings Screen]
+    H --> I[Settings Screen]
 ```
 
 🏛️ **Architecture**
@@ -191,11 +192,12 @@ erDiagram
 2. Do **not** commit `assets/.env` to git (see `.gitignore`).
 3. Run `flutter pub get` and build for Android, iOS, or Web.
 
-## 🎥 Demonstration  
 
-▶️ **[Watch Project Demo](https://drive.google.com/drive/folders/1Yzxn-CuKI7NZ6O451vO_tT8ok0fpccWo?usp=drive_link)**
- 
-📱 Or scan the QR code below:  
+## 🎥 Demonstration
+
+▶️ **[Watch Project Demo](https://drive.google.com/file/d/1V1vqFDM7Ot-_gmYaTbOFgCuZFNmDXwuA/view?usp=sharing)**
+
+📱 Or scan the QR code below:
 
 ![QR Code](assets/qr-code/frame.png)
 

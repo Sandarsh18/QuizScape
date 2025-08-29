@@ -72,8 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }).toList();
     // Debug print
     // ignore: avoid_print
-    print('Loaded quiz history: '
-        + quizHistory.map((q) => q['title'] ?? q['category'] ?? '').toList().toString());
+    print('Loaded quiz history: ${quizHistory.map((q) => q['title'] ?? q['category'] ?? '').toList()}');
     setState(() {
       _userProfile = profile;
       _quizHistory = quizHistory;
@@ -304,7 +303,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             children: [
                                               if (quiz['created_at'] != null)
                                                 Text(
-                                                  'Date: ' + DateFormat.yMMMd().format(DateTime.parse(quiz['created_at'])),
+                                                  'Date: ${DateFormat.yMMMd().format(DateTime.parse(quiz['created_at']))}',
                                                   style: Theme.of(context).textTheme.bodySmall,
                                                 ),
                                               if (quiz['difficulty'] != null)
@@ -333,7 +332,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             : [])
                                                           : List<Map<String, dynamic>>.from(quiz['questions'] ?? []);
                                                       return AlertDialog(
-                                                        title: Text('Quiz Answers'),
+                                                        title: const Text('Quiz Answers'),
                                                         content: SizedBox(
                                                           width: double.maxFinite,
                                                           child: ListView.builder(
@@ -348,9 +347,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                   children: [
                                                                     Text('Q${qIdx + 1}: ${q['question'] ?? ''}', style: const TextStyle(fontWeight: FontWeight.bold)),
                                                                     if (q['userAnswer'] != null)
-                                                                      Text('Your answer: ${q['userAnswer']}', style: TextStyle(color: Colors.blue)),
+                                                                      Text('Your answer: ${q['userAnswer']}', style: const TextStyle(color: Colors.blue)),
                                                                     if (q['correctAnswer'] != null)
-                                                                      Text('Correct answer: ${q['correctAnswer']}', style: TextStyle(color: Colors.green)),
+                                                                      Text('Correct answer: ${q['correctAnswer']}', style: const TextStyle(color: Colors.green)),
                                                                   ],
                                                                 ),
                                                               );

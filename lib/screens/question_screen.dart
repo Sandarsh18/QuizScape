@@ -5,7 +5,6 @@ import 'package:quiz_app/models/question.dart';
 import 'package:quiz_app/services/quiz_service.dart';
 import 'package:quiz_app/services/supabase_service.dart';
 import 'package:quiz_app/utils/constants.dart';
-import 'package:quiz_app/screens/quiz_result_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:quiz_app/utils/theme_notifier.dart';
 
@@ -250,8 +249,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 final isCorrect = _isAnswered && option == q.correctAnswer;
                 final isWrong = _isAnswered && isSelected && option != q.correctAnswer;
                 Color? color;
-                if (isCorrect) color = Colors.green;
-                else if (isWrong) color = Colors.red;
+                if (isCorrect) {
+                  color = Colors.green;
+                } else if (isWrong) color = Colors.red;
                 else if (isSelected) color = Colors.blue[200];
                 return Card(
                   color: color,

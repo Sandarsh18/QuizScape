@@ -6,7 +6,6 @@ import '../models/user.dart';
 class AuthService {
   static const String _usersKey = 'users';
   static const String _currentUserKey = 'current_user';
-  static const String _quizResultsBox = 'quiz_results';
   static const String _quizResultsKey = 'quiz_results';
 
   Future<Map<String, dynamic>> _getAllUsers() async {
